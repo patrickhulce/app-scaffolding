@@ -1,4 +1,4 @@
-repository: http://raw.githubusercontent.com/patrickhulce/app-scaffolding/master/
+repository: http://raw.githubusercontent.com/patrickhulce/app-scaffolding/master/templates/
 prompts:
   - appName
   - appDescription
@@ -16,13 +16,14 @@ bower:
   - mousetrap
 npm: []
 structure:
-  .bowermap: repo://.bowermap
-  .jshintrc: repo://.jshintrc
+  .bowermap: repo://bowermap
+  .jshintrc: repo://jshintrc
   README.md: repo://README.md
   app:
     index.html: repo://angular/index.html
     js:
       app.js: repo://angular/app.js
+      snippets.js: repo://angular/snippets.js
     less:
       app.less: 'h1 { color: red }'
 grunt:

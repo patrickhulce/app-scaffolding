@@ -1,0 +1,96 @@
+repository: http://raw.githubusercontent.com/patrickhulce/app-scaffolding/master/
+prompts:
+  - appName
+  - appDescription
+  - pkg-jquery?
+  - pkg-angular-resource?
+bower:
+  - jquery
+  - angular
+  - angular-resource
+npm: []
+structure:
+  .bowermap: repo://.bowermap
+  .jshintrc: repo://.jshintrc
+  README.md: repo://README.md
+  app:
+    index.html: repo://angular/index.html
+    js:
+      app.js: repo://angular/app.js
+    less:
+      app.less: 'h1 { color: red }'
+grunt:
+  config:
+    jshint:
+      all:
+        - 'app/js/*.js'
+    less:
+      app:
+        files:
+          - src: 'app/less/**.less'
+            dest: www-root/css/app.css
+    copy:
+      app:
+        files:
+          - expand: true
+            cwd: app
+            src: '**.html'
+            dest: www-root
+    concat:
+      app:
+        files:
+          - src: 'app/js/**.js'
+            dest: www-root/js/app.js
+    uglify:
+      app:
+        files:
+          - src: www-root/js/app.js
+            dest: www-root/js/app.min.js
+    watch:
+      appJs:
+        files: ['app/js/**.js']
+        tasks: ['concat']
+      appLess:
+        files: ['app/less/**.less']
+        tasks: ['less']
+      appHtml:
+        files: ['app/**.html']
+        tasks: ['copy']
+    bowermap:
+      app_css:
+        options:
+          filter: '.css$'
+        dest: www-root/css/vendor.min.css
+        packages:
+          - bootstrap
+          - font-awesome
+      app_js:
+        options:
+          filter: '.js$'
+        dest: www-root/js/vendor.min.js
+        packages:
+          - jquery
+          - angular
+          - angular-bootstrap
+          - angular-route
+          - angular-ui-sortable
+          - lodash
+          - mousetrap
+      app_fonts:
+        options:
+          mode: copy
+          filter: '^fonts'
+        dest: www-root/
+        packages:
+          - font-awesome
+    connect:
+      server:
+        options:
+          port: 3000
+          base: www-root
+  tasks:
+    build: [less, concat, copy]
+    test: [jshint]
+    dist: [test, build, uglify]
+    run: [build, watch]
+

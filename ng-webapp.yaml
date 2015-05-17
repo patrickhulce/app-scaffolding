@@ -2,12 +2,18 @@ repository: http://raw.githubusercontent.com/patrickhulce/app-scaffolding/master
 prompts:
   - appName
   - appDescription
-  - pkg-jquery?
-  - pkg-angular-resource?
+  - useServer?
 bower:
   - jquery
+  - jquery-ui
+  - bootstrap
+  - font-awesome
   - angular
-  - angular-resource
+  - angular-bootstrap
+  - angular-route
+  - angular-ui-sortable
+  - lodash
+  - mousetrap
 npm: []
 structure:
   .bowermap: repo://.bowermap
@@ -70,6 +76,7 @@ grunt:
         dest: www-root/js/vendor.min.js
         packages:
           - jquery
+          - jquery-ui
           - angular
           - angular-bootstrap
           - angular-route

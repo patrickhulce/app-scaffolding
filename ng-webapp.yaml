@@ -2,7 +2,6 @@ repository: http://raw.githubusercontent.com/patrickhulce/app-scaffolding/master
 prompts:
   - appName
   - appDescription
-  - useServer?
 bower:
   - jquery
   - jquery-ui
@@ -18,6 +17,7 @@ npm: []
 structure:
   .bowermap: repo://bowermap
   .jshintrc: repo://jshintrc
+  .gitignore: repo://gitignore
   README.md: repo://README.md
   app:
     index.html: repo://angular/index.html
@@ -97,8 +97,9 @@ grunt:
           port: 3000
           base: www-root
   tasks:
+    bower: [bowermap]
     build: [less, concat, copy]
     test: [jshint]
-    dist: [test, build, uglify]
-    run: [build, watch]
+    dist: [test, bower, build, uglify]
+    run: [build, connect, watch]
 

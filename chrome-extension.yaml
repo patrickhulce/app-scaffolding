@@ -1,0 +1,144 @@
+repository: http://raw.githubusercontent.com/patrickhulce/app-scaffolding/master/templates/
+prompts:
+  - appName
+  - appDescription
+bower:
+  - jquery
+  - bootstrap
+  - font-awesome
+  - angular
+  - angular-bootstrap
+  - lodash
+  - mousetrap
+npm: []
+structure:
+  .bowermap: repo://bowermap
+  .jshintrc: repo://jshintrc
+  .gitignore: repo://gitignore
+  README.md: repo://README.md
+  manifest.json: repo://chrome/manifest.json
+  icons:
+    128x128.png: repo://chrome/icon.png
+    48x48.png: repo://chrome/icon.png
+  background:
+    background.js: repo://chrome/snippets.js
+  content:
+    content.js: repo://chrome/snippets.js
+  popup:
+    index.html: repo://chrome/popup.html
+    js:
+      app.js: "angular.module('popup', ['ui.bootstrap'])"
+    less:
+      app.less: 'h1 { color: red } \nbody { width: 400px }'
+  options:
+    index.html: repo://chrome/options.html
+    js:
+      app.js: repo://chrome/options.js
+    less:
+      app.less: 'h1 { color: red }'
+grunt:
+  config:
+    jshint:
+      all:
+        - 'background/**.js'
+        - 'content/**.js'
+        - 'popup/**.js'
+        - 'options/**.js'
+    less:
+      popup:
+        files:
+          - src: 'popup/less/**.less'
+            dest: build/popup/css/app.css
+      options:
+        files:
+          - src: 'options/less/**.less'
+            dest: build/options/css/app.css
+    copy:
+      popup:
+        files:
+          - expand: true
+            cwd: popup
+            src: '**.html'
+            dest: build/popup
+      options:
+        files:
+          - expand: true
+            cwd: options
+            src: '**.html'
+            dest: build/options
+    concat:
+      popup:
+        files:
+          - src: 'popup/js/**.js'
+            dest: build/popup/js/app.js
+      options:
+        files:
+          - src: 'options/js/**.js'
+            dest: build/popup/js/app.js
+      background:
+        files:
+          - src: 'background/**.js'
+            dest: build/background.js
+      content:
+        files:
+          - src: 'content/**.js'
+            dest: build/content.js
+    watch:
+      appJs:
+        files: ['**.js']
+        tasks: ['concat']
+      appLess:
+        files: ['**.less']
+        tasks: ['less']
+      appHtml:
+        files: ['**.html']
+        tasks: ['copy']
+    bowermap:
+      app_css:
+        options:
+          filter: '.css$'
+        dest: build/lib/css/vendor-ui.min.css
+        packages:
+          - bootstrap
+          - font-awesome
+      app_js:
+        options:
+          filter: '.js$'
+        dest: build/lib/js/vendor.min.js
+        packages:
+          - jquery
+          - lodash
+          - mousetrap
+      app_ui_js:
+        options:
+          filter: '.js$'
+        dest: build/lib/js/vendor-ui.min.js
+        packages:
+          - jquery
+          - angular
+          - angular-bootstrap
+          - lodash
+          - mousetrap
+      app_fonts:
+        options:
+          mode: copy
+          filter: '^fonts'
+        dest: build/lib
+        packages:
+          - font-awesome
+    compress:
+      app:
+        options:
+          archive: dist/Extension.zip
+        files:
+          - expand: true
+            cwd: build/
+            src: ['**']
+            dest: './'
+  tasks:
+    bower: [bowermap]
+    build: [less, concat, copy]
+    test: [jshint]
+    dist: [test, bower, build, compress]
+    run: [build, watch]
+

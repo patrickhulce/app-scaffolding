@@ -1,0 +1,34 @@
+repository: http://raw.githubusercontent.com/patrickhulce/app-scaffolding/master/templates/
+prompts:
+  - appName
+  - appDescription
+bower: []
+npm:
+  - lodash
+  - express
+structure:
+  .jshintrc: repo://jshintrc
+  .gitignore: repo://gitignore
+  README.md: repo://README.md
+  app:
+    server.js: repo://express/server.js
+    controllers:
+      item.js: repo://express/controller.js
+    models:
+      item_model.js: repo://express/model.js
+grunt:
+  config:
+    jshint:
+      all:
+        - 'app/**.js'
+    copy:
+      app:
+        files:
+          - expand: true
+            cwd: app
+            src: '**.js'
+            dest: dist
+  tasks:
+    test: [jshint]
+    dist: [copy]
+

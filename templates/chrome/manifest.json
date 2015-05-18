@@ -1,0 +1,35 @@
+{
+  "manifest_version": 2,
+  "name": "<%= appName %>",
+  "description": "<%= appDescription %>",
+  "version": "0.1.0",
+  "icons": {
+    "48": "icons/48x48.png",
+    "128": "icons/128x128.png"
+  },
+  "browser_action": {
+    "default_popup": "popup/popup.html"
+  },
+  "options_page": "options/index.html",
+  "options_ui": {
+    "page": "options/index.html"
+  },
+  "content_scripts": [
+    {
+      "matches": ["*://mysite.com/*"],
+      "js": ["lib/js/vendor.min.js", "content.js"]
+    }
+  ],
+  "background": {
+    "scripts": ["lib/js/vendor.min.js", "background.js"]
+  },
+  "web_accessible_resources": [
+    "icons/*.png"
+  ],
+  "permissions": [
+    "activeTab",
+    "tabs",
+    "http://*/*",
+    "https://*/*"
+  ]
+}

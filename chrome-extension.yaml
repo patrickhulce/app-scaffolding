@@ -140,5 +140,5 @@ grunt:
     build: [less, concat, copy]
     test: [jshint]
     dist: [test, bower, build, compress]
-    run: [build, watch]
+    default: [build, watch]
 

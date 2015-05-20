@@ -18,6 +18,8 @@ structure:
   .bowermap: repo://bowermap
   .jshintrc: repo://jshintrc
   .gitignore: repo://gitignore
+  package.json: repo://package.json
+  bower.json: repo://bower.json
   README.md: repo://README.md
   app:
     index.html: repo://angular/index.html
@@ -101,5 +103,5 @@ grunt:
     build: [less, concat, copy]
     test: [jshint]
     dist: [test, bower, build, uglify]
-    run: [build, connect, watch]
+    default: [build, connect, watch]
 

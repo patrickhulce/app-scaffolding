@@ -13,7 +13,7 @@ structure:
   app:
     server.js: repo://express/server.js
     controllers:
-      item.js: repo://express/controller.js
+      item_controller.js: repo://express/controller.js
     models:
       item_model.js: repo://express/model.js
 grunt:

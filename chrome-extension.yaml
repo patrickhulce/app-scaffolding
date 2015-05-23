@@ -16,6 +16,8 @@ structure:
   .jshintrc: repo://jshintrc
   .gitignore: repo://gitignore
   README.md: repo://README.md
+  package.json: repo://package.json
+  bower.json: repo://bower.json
   manifest.json: repo://chrome/manifest.json
   icons:
     128x128.png: repo://chrome/icon.png

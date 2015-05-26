@@ -51,18 +51,28 @@ grunt:
         files:
           - src: 'popup/less/**.less'
             dest: build/popup/css/app.css
-      options:
+      options_page:
         files:
           - src: 'options/less/**.less'
             dest: build/options/css/app.css
     copy:
+      icons:
+        files:
+          - expand: true
+            cwd: icons
+            src: '**'
+            dest: build/icons
+      manifest:
+        files:
+          - src: manifest.json
+            dest: build/manifest.json
       popup:
         files:
           - expand: true
             cwd: popup
             src: '**.html'
             dest: build/popup
-      options:
+      options_page:
         files:
           - expand: true
             cwd: options
@@ -73,7 +83,7 @@ grunt:
         files:
           - src: 'popup/js/**.js'
             dest: build/popup/js/app.js
-      options:
+      options_page:
         files:
           - src: 'options/js/**.js'
             dest: build/popup/js/app.js
@@ -87,13 +97,13 @@ grunt:
             dest: build/content.js
     watch:
       appJs:
-        files: ['**.js']
+        files: ['popup/**/*.js', 'options/**/*.js', 'background/**/*.js', 'content/**/*.js']
         tasks: ['concat']
       appLess:
-        files: ['**.less']
+        files: ['popup/**/*.less', 'options/**/*.less']
         tasks: ['less']
       appHtml:
-        files: ['**.html']
+        files: ['popup/**/*.html', 'options/**/*.html']
         tasks: ['copy']
     bowermap:
       app_css:

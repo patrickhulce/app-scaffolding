@@ -1,0 +1,12 @@
+doctype html
+html
+    head
+        title <%= appName %>
+        link(href="css/vendor.min.css", rel="stylesheet", type="text/css")
+        link(href="css/app.css", rel="stylesheet", type="text/css")
+    body
+        div.container(ng-app="<%= slugify(appName) %>")
+            div(ng-include="partials/index.html")
+
+        script(src="js/vendor.min.js")
+        script(src="js/app.js")

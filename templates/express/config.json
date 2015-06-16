@@ -1,0 +1,14 @@
+{
+  "dev": {
+    "port": 3000,
+    "uri": "http://localhost:3000",
+    "secret": "HELLO WORLD",
+    "db": {
+      "username": "root",
+      "password": null,
+      "database": "node_api",
+      "host": "127.0.0.1",
+      "dialect": "mysql"
+    }
+  }
+}

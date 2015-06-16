@@ -13,7 +13,10 @@ bower:
   - angular-ui-sortable
   - lodash
   - mousetrap
-npm: []
+npm:
+  - express
+  - sequelize
+  - jade
 structure:
   .bowermap: repo://bowermap
   .jshintrc: repo://jshintrc
@@ -22,12 +25,28 @@ structure:
   bower.json: repo://bower.json
   README.md: repo://README.md
   app:
-    index.html: repo://angular/index.html
     js:
       app.js: repo://angular/app.js
       snippets.js: repo://angular/snippets.js
     less:
       app.less: 'h1 { color: red }'
+    partials:
+      index.html: repo://express/index.html
+  server:
+    server.js: repo://express/server.js
+    auth.js: repo://express/auth.js
+    routes.js: repo://express/routes.js
+    controllers:
+      users_controllers.js: repo://express/users_controllers.js
+    db:
+      models:
+       user.js: repo://express/db/user.js
+      columns.js: repo://express/db/columns.js
+      db.js: repo://express/db/db.js
+    views:
+      index.jade: repo://express/index.jade
+  config:
+    config.json: repo://express/config.json
 grunt:
   config:
     jshint:
@@ -93,15 +112,17 @@ grunt:
         dest: www-root/
         packages:
           - font-awesome
-    connect:
-      server:
+    nodemon:
+      app:
+        script: server/server.js
         options:
-          port: 3000
-          base: www-root
+          watch: [server]
+          env:
+            PORT: 3000
+            NODE_ENV: 'dev'
   tasks:
     bower: [bowermap]
     build: [less, concat, copy]
     test: [jshint]
     dist: [bower, test, build, uglify]
-    default: [build, connect, watch]
-
+    default: [build, nodemon, watch]

@@ -31,7 +31,7 @@ structure:
     js:
       app.js: "angular.module('popup', ['ui.bootstrap'])"
     less:
-      app.less: 'h1 { color: red } \nbody { width: 400px }'
+      app.less: 'body { width: 400px }'
   options:
     index.html: repo://chrome/options.html
     js:
@@ -42,18 +42,18 @@ grunt:
   config:
     jshint:
       all:
-        - 'background/**.js'
-        - 'content/**.js'
-        - 'popup/**.js'
-        - 'options/**.js'
+        - 'background/**/*.js'
+        - 'content/**/*.js'
+        - 'popup/**/*.js'
+        - 'options/**/*.js'
     less:
       popup:
         files:
-          - src: 'popup/less/**.less'
+          - src: 'popup/less/**/*.less'
             dest: build/popup/css/app.css
       options_page:
         files:
-          - src: 'options/less/**.less'
+          - src: 'options/less/**/*.less'
             dest: build/options/css/app.css
     copy:
       icons:
@@ -70,30 +70,30 @@ grunt:
         files:
           - expand: true
             cwd: popup
-            src: '**.html'
+            src: '**/*.html'
             dest: build/popup
       options_page:
         files:
           - expand: true
             cwd: options
-            src: '**.html'
+            src: '**/*.html'
             dest: build/options
     concat:
       popup:
         files:
-          - src: 'popup/js/**.js'
+          - src: 'popup/js/**/*.js'
             dest: build/popup/js/app.js
       options_page:
         files:
-          - src: 'options/js/**.js'
+          - src: 'options/js/**/*.js'
             dest: build/popup/js/app.js
       background:
         files:
-          - src: 'background/**.js'
+          - src: 'background/**/*.js'
             dest: build/background.js
       content:
         files:
-          - src: 'content/**.js'
+          - src: 'content/**/*.js'
             dest: build/content.js
     watch:
       appJs:
@@ -128,7 +128,6 @@ grunt:
         packages:
           - jquery
           - angular
-          - angular-bootstrap
           - lodash
           - mousetrap
       app_fonts:

@@ -43,7 +43,7 @@ grunt:
         files:
           - expand: true
             cwd: app
-            src: '**.html'
+            src: '**/*.html'
             dest: www-root
     concat:
       app:
@@ -104,4 +104,3 @@ grunt:
     test: [jshint]
     dist: [bower, test, build, uglify]
     default: [build, connect, watch]
-

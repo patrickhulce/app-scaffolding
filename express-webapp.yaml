@@ -1,4 +1,4 @@
-repository: http://raw.githubusercontent.com/patrickhulce/app-scaffolding/master/templates/
+repository: http://localhost:8080/
 prompts:
   - appName
   - appDescription
@@ -15,7 +15,10 @@ bower:
   - mousetrap
 npm:
   - express
+  - cookie-parser
+  - body-parser
   - sequelize
+  - mysql
   - jade
 structure:
   .bowermap: repo://bowermap
@@ -37,7 +40,7 @@ structure:
     auth.js: repo://express/auth.js
     routes.js: repo://express/routes.js
     controllers:
-      users_controllers.js: repo://express/users_controllers.js
+      users_controller.js: repo://express/users_controller.js
     db:
       models:
        user.js: repo://express/db/user.js
@@ -62,7 +65,7 @@ grunt:
         files:
           - expand: true
             cwd: app
-            src: '**.html'
+            src: '**/*.html'
             dest: www-root
     concat:
       app:
@@ -112,6 +115,12 @@ grunt:
         dest: www-root/
         packages:
           - font-awesome
+    concurrent:
+      dev:
+        - nodemon
+        - watch
+      options:
+        logConcurrentOutput: true
     nodemon:
       app:
         script: server/server.js
@@ -125,4 +134,4 @@ grunt:
     build: [less, concat, copy]
     test: [jshint]
     dist: [bower, test, build, uglify]
-    default: [build, nodemon, watch]
+    default: [build, concurrent]

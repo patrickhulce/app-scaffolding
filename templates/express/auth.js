@@ -1,6 +1,4 @@
-module.exports = function (app, db) {
-  var config = require('../config/config.json')[process.env.NODE_ENV || 'dev'];
-
+module.exports = function (config, app, db) {
   /** Facebook Auth
   var session = require('express-session');
   var passport = require('passport');
@@ -11,21 +9,29 @@ module.exports = function (app, db) {
     clientSecret: process.env.FACEBOOK_APP_SECRET,
     callbackURL: config.uri + '/oauth/facebook'
   }, function (accessToken, refreshToken, profile, done) {
-    db.User.findOrCreate({email: profile.email}, {
-      name: profile.name,
-      email: profile.email,
-      access: 'user'
-    }, function (user) {
-      done(null, user);
-    });
+    var data = profile._json;
+    db.User.findOrCreate({
+        where: {
+          email: data.email
+        },
+        defaults: {
+          name: data.name,
+          email: data.email,
+          access: 'user'
+        }
+      }).spread(function (user, created) {
+        done(null, user);
+      });
   }));
 
   passport.serializeUser(function (user, done) {
-    done(null, user);
+    done(null, user.id);
   });
 
   passport.deserializeUser(function (user, done) {
-    done(null, user);
+    db.User.findById(user.id).then(function (fullUser) {
+      done(null, fullUser);
+    });
   });
 
   app.use(session({ secret: config.secret}));
@@ -54,7 +60,6 @@ module.exports = function (app, db) {
     }
   }));
   */
-
   return {
     loginRequired: function (req, res, next) {
       if (!req.user) res.sendStatus(401);

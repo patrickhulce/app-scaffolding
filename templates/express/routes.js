@@ -1,7 +1,7 @@
 
-module.exports = function (auth, db) {
+module.exports = function (config, auth, db) {
   var express = require('express');
-  var router = express.router();
+  var router = express.Router();
 
   router.get('/', function (req, res) {
     res.render('index', { title: '<%= appName %>' });
@@ -15,7 +15,7 @@ module.exports = function (auth, db) {
     res.json({status: 'success'});
   });
 
-  var users = require('./controllers/users_controllers.js')(auth, db);
+  var users = require('./controllers/users_controller.js')(auth, db);
   router.use('/users', users);
 
   return router;
